@@ -22,6 +22,7 @@ It's also an International Standard used by organizations like: Banking institut
 1. No encryption method is perfect, and - whether it be memory/speed, interoperability, etc. - each one has its own concerns, flaws, strengths and intended use-case.
 2. Any form of encryption is only as strong as your implementation of it. e.g. using AES-256 incorrectly does not give you the same security as someone that's used it correctly. The security depends on your implementation of it.
 3. This project is still a work in progress (WIP). I will update this point once it has been completed.
+4. There is an API-client already included in this repo, within the "API Client" folder - you can find it [here](https://github.com/Cyber-Finn/Military-Grade-Security-API/tree/main/API%20Client).
 
 ## What is PKI?
 Public Key Infrastructure (PKI) allows us to securely exchange symmetric keys (more on this below). 
