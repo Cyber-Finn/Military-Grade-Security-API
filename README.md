@@ -48,6 +48,7 @@ Once the message lands on the destination API/Site, that server would then use t
 ### How is that different to our scenario from before?
 In our scenario (using regular symmetric encryption):
 * I sent you a message saying "hello, world!" and the key I used to encrypt the message. The hacker intercepted this message and changed it to say "you suck!". You got the message, and now feel offended!
+<br>
 Using PKI: 
 * I create a message saying "hello, world!", encrypt it with your PKI key, and send it to you. The hacker intercepts the message, but can't decrypt it, because you're the only one in the entire world with the private/decryption key.
 <br>
