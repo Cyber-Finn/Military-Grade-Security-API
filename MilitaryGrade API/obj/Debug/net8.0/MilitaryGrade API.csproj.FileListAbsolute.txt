@@ -1,0 +1,33 @@
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\appsettings.Development.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\appsettings.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\MilitaryGrade API.exe
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\MilitaryGrade API.deps.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\MilitaryGrade API.runtimeconfig.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\MilitaryGrade API.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\MilitaryGrade API.pdb
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\Microsoft.OpenApi.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.csproj.AssemblyReference.cache
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.AssemblyInfoInputs.cache
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.AssemblyInfo.cs
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.csproj.CoreCompileInputs.cache
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.sourcelink.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets.build.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets.development.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets\msbuild.MilitaryGrade API.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets\msbuild.build.MilitaryGrade API.props
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.MilitaryGrade API.props
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.MilitaryGrade API.props
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\scopedcss\bundle\MilitaryGrade API.styles.css
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\Military.045DA674.Up2Date
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\refint\MilitaryGrade API.dll
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.pdb
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\MilitaryGrade API.genruntimeconfig.cache
+C:\Users\Steph\source\repos\C#\MilitaryGrade API\MilitaryGrade API\obj\Debug\net8.0\ref\MilitaryGrade API.dll

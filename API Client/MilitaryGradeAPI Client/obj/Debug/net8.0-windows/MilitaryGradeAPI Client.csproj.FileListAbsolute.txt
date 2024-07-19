@@ -1,0 +1,17 @@
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\bin\Debug\net8.0-windows\MilitaryGradeAPI Client.exe
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\bin\Debug\net8.0-windows\MilitaryGradeAPI Client.deps.json
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\bin\Debug\net8.0-windows\MilitaryGradeAPI Client.runtimeconfig.json
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\bin\Debug\net8.0-windows\MilitaryGradeAPI Client.dll
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\bin\Debug\net8.0-windows\MilitaryGradeAPI Client.pdb
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI_Client.Form1.resources
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.csproj.GenerateResource.cache
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.AssemblyInfoInputs.cache
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.AssemblyInfo.cs
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.csproj.CoreCompileInputs.cache
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.dll
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\refint\MilitaryGradeAPI Client.dll
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.pdb
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.genruntimeconfig.cache
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\ref\MilitaryGradeAPI Client.dll
+C:\Users\Steph\source\repos\C#\MilitaryGradeAPI Client\MilitaryGradeAPI Client\obj\Debug\net8.0-windows\MilitaryGradeAPI Client.sourcelink.json
