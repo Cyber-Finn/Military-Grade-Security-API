@@ -11,8 +11,8 @@ namespace MilitaryGrade_API.StatefulManager;
 /// <remarks>In a proper system, we would use other methods of handling statefulness, like saving to a connections db, etc., but for simplicity-sake, we are going to be using a text file</remarks>
 public class StatefulnessManager
 {
-    public UserData _objUserData = new UserData();
-    private string _stateFiles_FilePath => ServerCertificatePaths.StateFiles_FolderLocation + ServerCertificatePaths.StateFiles_Filename;
+    public UserData UserConnectionData = new UserData();
+    private static string _stateFiles_FilePath => ServerCertificatePaths.StateFiles_FolderLocation + ServerCertificatePaths.StateFiles_Filename;
 
     public StatefulnessManager()
     {
@@ -68,11 +68,12 @@ public class StatefulnessManager
         //replace the file with an empty one
         File.WriteAllText(_stateFiles_FilePath, "");
 
-        // lock the file
+        // lock the file again
         using (var fileStream = File.Open(_stateFiles_FilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
         {
             using (var writer = new StreamWriter(fileStream))
             {
+                //write all the data
                 for (int i = 0; i < newContentsLength; i++)
                 {
                     writer.WriteLine(newContents[i]);
@@ -84,16 +85,16 @@ public class StatefulnessManager
 
     #region JSON 
     /// <summary>
-    /// Converts the current user data object into a json string to save to the file
+    /// Converts the current user connection object into a json string to save to the file
     /// </summary>
     /// <returns></returns>
     private string GetJSONString()
     {
-        return JsonSerializer.Serialize(_objUserData);
+        return JsonSerializer.Serialize(UserConnectionData);
     }
 
     /// <summary>
-    /// converts a line of text (in JSON format) into a user data object
+    /// converts a line of text (in JSON format) into a user connection object
     /// </summary>
     /// <param name="jsonLine"></param>
     /// <returns></returns>
@@ -144,7 +145,7 @@ public class StatefulnessManager
 
     /// <summary>
     /// allows us to terminate the API user's session after a certain time -> there are a few ways we could manage this
-    /// For simplicity, we'll assume the API client sends a "session closing" message
+    /// For simplicity, we'll assume the API client sends a "session closing" message when the user closes the app
     /// </summary>
     /// <param name="oldContents"></param>
     /// <returns></returns>
@@ -183,11 +184,11 @@ public class StatefulnessManager
     #region Checks to see if old object matches current object
     private bool checkMatch_Username(ref UserData oldUserData)
     {
-        return (oldUserData.Username.Equals(_objUserData.Username)) ? true : false;
+        return (oldUserData.Username.Equals(UserConnectionData.Username)) ? true : false;
     }
     private bool checkMatch_Token(ref UserData oldUserData)
     {
-        return (oldUserData.SessionToken.Equals(_objUserData.SessionToken)) ? true : false;
+        return (oldUserData.SessionToken.Equals(UserConnectionData.SessionToken)) ? true : false;
     }
     #endregion Checks to see if old object matches current object
 
@@ -198,19 +199,19 @@ public class StatefulnessManager
     public void HandleAuthPhaseOne([StringLength(78)] string decrypted) //min&max must be 78 chars only
     {
         //load up their current connection object
-        this._objUserData.EncryptionKey = decrypted.Substring(0, 32); //key is first 32
-        this._objUserData.EncryptionInitializationVector = decrypted.Substring(64, 16); //IV is only 16
-        this._objUserData.Username = decrypted.Substring(64, 30); //username can be up to 30
+        this.UserConnectionData.EncryptionKey = decrypted.Substring(0, 32); //key is first 32
+        this.UserConnectionData.EncryptionInitializationVector = decrypted.Substring(64, 16); //IV is only 16
+        this.UserConnectionData.Username = decrypted.Substring(64, 30); //username can be up to 30
 
         //save the current object to the stateful manager file, so that we can persist their session
         WriteMessageToFile(GetJSONString());
     }
-    public void HandleAuth([StringLength(100)] string decryptedString) //min&max must be 100 chars only
+    public void HandleAuth([StringLength(222)] string decrypted) //min&max must be 100 chars only
     {
         //user has now successfully done a "handshake" with us, so we'll now talk to them in future, using this session token instead of a password
         //  this increases the users' protection against having their password stolen by on-path attackers or sniffers
-        //      stolen sessionTokens will only be compromised for a single session - and attackers would need to repeat the attack next session
-        this._objUserData.SessionToken = decryptedString.Substring(94, 128);
+        //      stolen sessionTokens will only be compromised for a single session - and attackers would need to repeat the attack next session (This is assuming they were able to magically steal the symmetric encryption keys)
+        this.UserConnectionData.SessionToken = decrypted.Substring(94, 128);
 
         ReplaceUserDataWithUpdatedData();
     }

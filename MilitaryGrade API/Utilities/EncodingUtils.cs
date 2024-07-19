@@ -5,10 +5,10 @@ public class EncodingUtils
 {
 
     /// Note:
-    /// We want the API-client to send data in base64 format, because base64 ensures compatibility with systems and removes text transport issues, URL safety, etc. <summary>
+    /// We want the API and its' client to send data in base64 format, because base64 ensures compatibility with systems and removes text transport issues, ensures URL safety, etc. <summary>
     /// Note:
-    /// we also want to use ASCII over UTF8 here, because UTF8 is variable length, where ASCII encoding uses a full 8bits to represent a character.
-    ///     ensures transport safety and quality
+    /// we also want to use ASCII over UTF8 for all encoding, because UTF8 is variable length, where ASCII encoding uses a full 8bits to represent any given character.
+    ///     this will ensure data transport safety (from corruption) and quality
 
     public static string Base64Encode(byte[] input)
     {

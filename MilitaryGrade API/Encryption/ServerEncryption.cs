@@ -22,7 +22,7 @@ public class ServerEncryption
         try
         {
             //the string is still encrypted here, so we need to convert it to a byte[], then decrypt it, then convert it back to a string and do stuff with it
-            return DecryptDataWithServerPrivateKey(EncodingUtils.StringToByteArray(encrypted));
+            return DecryptDataWithServerPrivateKey(bArrInput: EncodingUtils.StringToByteArray(encrypted));
         }
         catch (Exception)
         {
@@ -32,9 +32,9 @@ public class ServerEncryption
     /// <summary>
     /// Decrypts the given data with the server's Private RSA asymmetric decryption key
     /// </summary>
-    /// <param name="strInput"></param>
+    /// <param name="bArrInput"></param>
     /// <returns>The decrypted plaintext of the given ciphertext (encrypted data)</returns>
-    private static string DecryptDataWithServerPrivateKey(byte[] strInput)
+    private static string DecryptDataWithServerPrivateKey(byte[] bArrInput)
     {
         try
         {
@@ -44,7 +44,7 @@ public class ServerEncryption
             {
                 //we now decrypt the user's input txt, and convert the result from byte[] back to a regular string
                 //so this is now the decrypted version of their initial call
-                return EncodingUtils.ByteArrayToString(privateKey.DecryptValue(strInput));
+                return EncodingUtils.ByteArrayToString(bytes: privateKey.DecryptValue(bArrInput));
             }
         }
         catch
@@ -66,7 +66,7 @@ public class ServerEncryption
     {
         try
         {
-            X509Certificate2 certificate = new X509Certificate2(ServerCertificatePaths.CertificatePath, ServerCertificatePaths.CertificatePassword);
+            X509Certificate2 certificate = new X509Certificate2(fileName: ServerCertificatePaths.CertificatePath, password: ServerCertificatePaths.CertificatePassword);
             RSA? privateKey = certificate.GetRSAPrivateKey();
             if (privateKey != null)
             {

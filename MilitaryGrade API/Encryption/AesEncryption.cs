@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using MilitaryGrade_API.StatefulManager;
+using MilitaryGrade_API.Utilities;
 
 namespace MilitaryGrade_API.Encryption;
 public class AesEncryption
@@ -16,12 +17,12 @@ public class AesEncryption
     public string Handler_Encryption(string s, StatefulnessManager statemanager)
     {
         //load up our db keys and IVs
-        string key = statemanager._objUserData.EncryptionKey;
-        string IV = statemanager._objUserData.EncryptionInitializationVector;
+        string key = statemanager.UserConnectionData.EncryptionKey;
+        string IV = statemanager.UserConnectionData.EncryptionInitializationVector;
 
         byte[] bytesOfKey = Encoding.ASCII.GetBytes(key, 0, 32);
         byte[] bytesOfIV = Encoding.ASCII.GetBytes(IV, 0, 16);
-        return "";//EncryptStringToBytes_Aes(s, bytesOfKey, bytesOfIV);
+        return EncodingUtils.Base64Encode(Encrypt(s, bytesOfKey, bytesOfIV));
     }
 
     /// <summary>
@@ -33,8 +34,8 @@ public class AesEncryption
     public string Handler_Decryption(string s, StatefulnessManager statemanager)
     {
         //load up our db keys and IVs
-        string key = statemanager._objUserData.EncryptionKey;
-        string IV = statemanager._objUserData.EncryptionInitializationVector;
+        string key = statemanager.UserConnectionData.EncryptionKey;
+        string IV = statemanager.UserConnectionData.EncryptionInitializationVector;
 
         string base64InputStr = Convert.ToBase64String(Encoding.UTF8.GetBytes(s));
         int sizeofString = base64InputStr.Length;

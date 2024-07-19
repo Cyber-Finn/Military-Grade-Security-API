@@ -19,8 +19,6 @@ namespace MilitaryGrade_API.Controllers
         //auth handshake between us and client
         /// <summary>
         ///  the data passed into this method IS encrypted with our public asymmetric encryption key. It contains the username, IV and Encryption key
-        ///  <br></br>
-        ///  We need to: Get base64 encoded string input. deconvert to regular string (still encrypted). Decrypt using private key. Convert from byte[] to string and substr
         /// </summary>
         /// <param name="inputString"></param>
         [HttpPost]
@@ -50,11 +48,14 @@ namespace MilitaryGrade_API.Controllers
         /// <param name="inputString"></param>
         [HttpPost]
         [Route("Authenticate")]
-        public void MilitaryGradeAPI_AuthenticateUser([StringLength(222)] string inputString) //takes username (30), pword hash (64) and security token (128) [we'll use token, instead of pword, for future comms, and extra security]
+        public void MilitaryGradeAPI_AuthenticateUser([StringLength(300)] string inputString) //takes username (30), pword hash (64) and security token (128) [we'll use token, instead of pword, for future comms, and added security]
         {
             try
             {
-                interMan.ManageLogin(inputString);
+                if (!String.IsNullOrEmpty(inputString))
+                {
+                    interMan.ManageLogin(strEncryptedInitialCall: inputString);
+                }
             }
             catch
             {
@@ -62,19 +63,22 @@ namespace MilitaryGrade_API.Controllers
             }
         }
 
-        //Here, the user has authed and sent us all required info, so now we'll be using their info to decrypt/encrypt messages
+        //Here, the user has already authed and sent us all required info, so they can now connect and do stuff securely
         [HttpGet]
         [Route("GetSomeResponseFromServer")]
         public string GetResponseFromServer(string inputString) //takes username (30), token (128) and input (variable length)
         {
             try
             {
-                return interMan.GetResponseFromServer(inputString);
+                if (!String.IsNullOrEmpty(inputString))
+                {
+                    return interMan.GetResponseFromServer(strEncryptedInitialCall: inputString);
+                }
             }
             catch
             {
-                return "";
             }
+            return "";
         }
 
         //Client app has closed session
@@ -90,7 +94,7 @@ namespace MilitaryGrade_API.Controllers
             }
         }
 
-        //Note: irl, this wouldn't be needed because the site would be hosted and key publicly available to all relevant clients,
+        //Note: irl, this wouldn't be needed because the site would be hosted and the key publicly available to all relevant clients,
         //but since I'm self-hosting locally, I'll need this to get the key of my api from the client-side
         [HttpGet]
         [Route("Debug_GetServerAsymmetricPublicKey")]

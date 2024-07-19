@@ -55,29 +55,29 @@ public class IntermediateLogicManager
     {
         try
         {
-            if (!String.IsNullOrEmpty(strEncryptedInitialCall))
+            string strDecryptedCall = aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
+
+            if (!string.IsNullOrEmpty(strDecryptedCall))
             {
-                string strDecryptedCall = aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
-
-                if (!string.IsNullOrEmpty(strDecryptedCall))
+                if (strDecryptedCall.Length == 222) //30 + 64 +128
                 {
-                    if (strDecryptedCall.Length == 222)
+                    //once decryption is done, we have the plaintext, so we need to substr the vars out
+                    string username = strDecryptedCall.Substring(0, 30).Replace("'", "");
+                    string password = strDecryptedCall.Substring(30, 64).Replace("'", "");
+
+                    //once our vals have been loaded up, we auth the user
+                    bool userCouldLogIn = dbConn.AuthLoginOnDB(username, password);
+
+                    //only load up the token for this session, if the user could log in (They're an authorized user)
+                    if (userCouldLogIn)
                     {
-                        //once decryption is done, we have the plaintext, so we need to substr the vars out
-                        string username = strDecryptedCall.Substring(0, 30).Replace("'", "");
-                        string password = strDecryptedCall.Substring(30, 64).Replace("'", "");
-
-                        //once our vals have been loaded up, we auth the user
-                        bool userCouldLogIn = dbConn.authLogin(username, password);
-
-                        //only load up the token for this session if the user could log in (They're an authorized user)
-                        if (userCouldLogIn)
-                        {
-                            //user has now successfully done a "handshake" with us, so we'll now talk to them in future, using this session token instead of a password
-                            //  this increases the users' protection against having their password stolen by on-path attackers or sniffers
-                            //      stolen sessionTokens will only be compromised for a single session - and attackers would need to repeat the attack next session
-                            statefulManager._objUserData.SessionToken = strDecryptedCall.Substring(94, 128);
-                        }
+                        ///<remarks>
+                        ///user has now successfully done a "handshake" with us, so we'll now talk to them in future, using this session token instead of a password hash (protects them against rainbow table attacks, etc.)
+                        ///this increases the users' protection against having their password stolen by attackers
+                        ///stolen sessionTokens will only be compromised for a single session - and attackers would need to repeat the attack next session (This is if they're somehow able to magically steal the encryption keys)
+                        /// </remarks>
+                        statefulManager.UserConnectionData.SessionToken = strDecryptedCall.Substring(94, 128);
+                        //todo: need to rework this line above, considering concurrent connections to the API, we'd need to first check the state manager
                     }
                 }
             }
@@ -91,24 +91,22 @@ public class IntermediateLogicManager
     {
         try
         {
-            if (!string.IsNullOrEmpty(strEncryptedInitialCall))
+            //Here, we'll be using our session's symmetric cryptographic key to decrypt the user's call, to get our data
+            string decrypted = aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
+
+            if (!string.IsNullOrEmpty(decrypted))
             {
-                //Here, we'll be using our session's symmetric cryptographic key to decrypt the user's call, to get our data
-                string strDecryptedCall = aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
+                //now that input was decrypted using session's symmetric cryptographic key, we can load up the data
+                string username = decrypted.Substring(0, 30).Replace("'", "");
+                string token = decrypted.Substring(30, 128).Replace("'", "");
 
-                if (!string.IsNullOrEmpty(strDecryptedCall))
-                {
-                    //now that input was decrypted using session's symmetric cryptographic key, we can load up the data
-                    string username = strDecryptedCall.Substring(0, 30).Replace("'", "");
-                    string token = strDecryptedCall.Substring(30, 128).Replace("'", "");
+                string JsonString = "";
+                //todo: load rest of the message and do something
+                //todo: need to rework this, considering concurrent connections to the API, we'd need to first check the state manager
 
-                    string JsonString = "";
-                    //todo: load rest of the message and do something
-
-                    //encrypt the data we return back to client for bidirectional safety, using the current session's symmetric cryptographic key
-                    string encryptedJsonString = aesEncryption.Handler_Encryption(JsonString, statefulManager);
-                    return encryptedJsonString;
-                }
+                //encrypt the data we return back to client for bidirectional safety, using the current session's symmetric cryptographic key
+                string base64EncodedEncryptedJsonString = aesEncryption.Handler_Encryption(JsonString, statefulManager);
+                return base64EncodedEncryptedJsonString;
             }
         }
         catch
