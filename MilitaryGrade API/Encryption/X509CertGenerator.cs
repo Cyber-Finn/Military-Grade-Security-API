@@ -9,7 +9,11 @@ using MilitaryGrade_API.Utilities;
 /// </summary>
 public class X509CertGenerator
 {
+    #region Members
     public static X509Certificate2? lifetimeX509Cert = null;
+    #endregion Members
+
+    #region Generate RSA Cert
     public static X509Certificate2 CreateRSACertificate()
     {
         // Generate RSA key pair
@@ -38,21 +42,9 @@ public class X509CertGenerator
             return lifetimeX509Cert;
         }
     }
+    #endregion Generate RSA Cert
 
-    public static string Test()
-    {
-        var certificate = CreateRSACertificate();
-        // Display public key
-        string message = $"Public Key: {Convert.ToBase64String(certificate.GetPublicKey())}" + $" . Private Key: {Convert.ToBase64String(certificate.PrivateKey.ExportPkcs8PrivateKey())}"
-            + $" . Certificate Thumbprint: {certificate.Thumbprint}";
-
-        return message;
-    }
-
-    public X509Certificate2 GetCertificate()
-    {
-        return (lifetimeX509Cert != null) ? lifetimeX509Cert : null;
-    }
+    #region Constructor
     /// <summary>
     /// Automatically generates an X509 format Certificate file with Public and Private RSA asymmetric encryption/decryption keys
     /// </summary>
@@ -61,19 +53,35 @@ public class X509CertGenerator
         //auto generate a cert for us when we create an instance object of this class
         CreateRSACertificate();
     }
+    #endregion Constructor
 
+    #region Get Methods
+    /// <summary>
+    /// Gets the public asymmetric encryption key of the server in a Base64 Encoded format
+    /// </summary>
+    /// <returns>Base64 Encoded Public key of server</returns>
     public static string GetServerPublicKey()
     {
         return EncodingUtils.ByteArrayToBase64String(lifetimeX509Cert.GetPublicKey());
     }
 
     /// <summary>
-    /// the key is stored as an RSA object, which we'll use to decrypt the input on server-side
+    /// Gets the newly generated X509.2 certificate file
     /// </summary>
+    /// <returns>The system generated - self-signed - X509.2 certificate file</returns>
+    public X509Certificate2 GetCertificate()
+    {
+        return (lifetimeX509Cert != null) ? lifetimeX509Cert : null;
+    }
+
+    /// <summary>
+    /// Gets the server's private decryption key for decryption of Asymmetrically encrypted data
+    /// </summary>
+    /// <remarks>the key is stored as an RSA object</remarks>
     /// <returns></returns>
     public static RSA GetServerPrivateKey()
     {
         return lifetimeX509Cert.GetRSAPrivateKey();
-        ;
     }
+    #endregion Get Methods
 }

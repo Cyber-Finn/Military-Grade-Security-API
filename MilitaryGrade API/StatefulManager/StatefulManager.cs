@@ -11,9 +11,12 @@ namespace MilitaryGrade_API.StatefulManager;
 /// <remarks>In a proper system, we would use other methods of handling statefulness, like saving to a connections db, etc., but for simplicity-sake, we are going to be using a text file</remarks>
 public class StatefulnessManager
 {
+    #region Members
     public UserData UserConnectionData = new UserData();
     private static string _stateFiles_FilePath => ServerCertificatePaths.StateFiles_FolderLocation + ServerCertificatePaths.StateFiles_Filename;
+    #endregion Members
 
+    #region Required Object checks and initialization
     public StatefulnessManager()
     {
         CheckDirExists();
@@ -41,6 +44,7 @@ public class StatefulnessManager
             File.Create(ServerCertificatePaths.StateFiles_Filename);
         }
     }
+    #endregion Required Object checks and initialization
 
     #region basic file manipulation
     private void WriteMessageToFile(string message)
@@ -192,6 +196,7 @@ public class StatefulnessManager
     }
     #endregion Checks to see if old object matches current object
 
+    #region Auth handshake Managers
     /// <summary>
     /// Saves the user's data for future connections (During this session only), allowing us to implement Perfect Forward Secrecy (PFS)
     /// </summary>
@@ -224,9 +229,12 @@ public class StatefulnessManager
         this.UserConnectionData.SessionToken = decrypted.Substring(0, 128);
         //now find the username that matches, then update the token
     }
+    #endregion Auth handshake Managers
 
+    #region Close connection with server
     public void HandleCloseSession()
     {
 
     }
+    #endregion Close connection with server
 }

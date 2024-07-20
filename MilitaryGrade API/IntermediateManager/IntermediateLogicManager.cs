@@ -5,14 +5,15 @@ using MilitaryGrade_API.StatefulManager;
 namespace MilitaryGrade_API.IntermediateManager;
 public class IntermediateLogicManager
 {
-    #region member declarations
+    #region Members
     //this instance will only be accessible to a single user -> using static here creates an instance that may allow users to access each other's data - which we don't want
     private DatabaseConnection dbConn = new DatabaseConnection();
     private AesEncryption aesEncryption = new AesEncryption();
     private ServerEncryption serverEncryption = new ServerEncryption();
     public StatefulnessManager statefulManager = new StatefulnessManager();
-    #endregion member declarations
+    #endregion Members
 
+    #region Auth handshake Managers
 
     /// <summary>
     /// Why do we have this Method/App?:
@@ -91,6 +92,9 @@ public class IntermediateLogicManager
         {
         }
     }
+    #endregion Auth handshake Managers
+
+    #region Connect and Get Data from server
     //Here, the user has authed and sent us all required info, so now we'll be using their info to decrypt/encrypt messages
     public string GetResponseFromServer(string strEncryptedInitialCall)
     {
@@ -119,5 +123,9 @@ public class IntermediateLogicManager
         }
         return "";
     }
+    #endregion Connect and Get Data from server
 
+    #region Close connection with server
+    //todo: add close logic
+    #endregion Close connection with server
 }

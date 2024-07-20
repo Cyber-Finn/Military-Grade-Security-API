@@ -4,6 +4,10 @@ using MilitaryGrade_API.StatefulManager;
 using MilitaryGrade_API.Utilities;
 
 namespace MilitaryGrade_API.Encryption;
+
+/// <summary>
+/// Custom class to handle Encryption and Decryption of confidential data, using the client's AES-256 symmetric key and IV
+/// </summary>
 public class AesEncryption
 {
     #region Handler Methods
