@@ -11,10 +11,12 @@ namespace MilitaryGrade_API.Controllers;
 /// </summary>
 [ApiController] // telling system this is api function to make available to client
 [Route("DataAccessor")] //name of API
-public class DataAccessorController : ControllerBase
+public class DataAccessorController : ControllerBase //inheriting the controller base class here to allow us to use our custom IP address methods below
 {
-    IntermediateLogicManager interMan = new IntermediateLogicManager();
-    X509CertGenerator certGenerator = new X509CertGenerator();
+    #region Members
+    private IntermediateLogicManager interMan = new IntermediateLogicManager();
+    private X509CertGenerator certGenerator = new X509CertGenerator();
+    #endregion Members
 
     #region IP Address Handling
     /// <summary>
@@ -45,8 +47,7 @@ public class DataAccessorController : ControllerBase
     }
     #endregion IP Address Handling
 
-
-
+    #region API Endpoints
     //auth handshake between us and client
     /// <summary>
     ///  the data passed into this method IS encrypted with our public asymmetric encryption key. It contains the username, IV and Encryption key
@@ -141,4 +142,6 @@ public class DataAccessorController : ControllerBase
             return e.Message;
         }
     }
+
+    #endregion API Endpoints
 }
