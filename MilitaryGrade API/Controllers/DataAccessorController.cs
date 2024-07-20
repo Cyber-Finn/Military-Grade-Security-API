@@ -7,12 +7,45 @@ using MilitaryGrade_API.Utilities;
 namespace MilitaryGrade_API.Controllers
 { 
     /// <summary>
-  /// this will handle which function to call, based on the client input
-  /// </summary>
+    /// this will handle which function to call, based on the client input
+    /// </summary>
     [ApiController] // telling system this is api function to make available to client
     [Route("DataAccessor")] //name of API
-    public class DataAccessorController
+    public class DataAccessorController : Controller
     {
+
+        #region IP Address Handling
+        /// <summary>
+        /// Gets the current connection's IP address (We can either do IP filtering with this, or figure out which user to check for in StatefulnessManager, before we decrypt their request
+        /// </summary>
+        /// <returns></returns>
+        private IActionResult GetClientIpAddress()
+        {
+            // Retrieve the client's IP address from the current request
+            var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+
+            // Return the IP address as part of the response
+            return Ok(ipAddress);
+        }
+
+        public string ParseIpAddress()
+        {
+            var ipAddressResult = GetClientIpAddress();
+            if (ipAddressResult is OkObjectResult okResult) //we got the IP
+            {
+                string? connectedUserIP = okResult.Value.ToString();
+
+                return (!String.IsNullOrEmpty(connectedUserIP)) ? connectedUserIP : String.Empty;
+            }
+            else //no IP found
+            {
+            }
+            return String.Empty;
+        }
+
+        #endregion IP Address Handling
+
+
         IntermediateLogicManager interMan = new IntermediateLogicManager();
         X509CertGenerator certGenerator = new X509CertGenerator();
 
@@ -27,11 +60,12 @@ namespace MilitaryGrade_API.Controllers
         {
             try
             {
-                if (!String.IsNullOrEmpty(inputString))
+                if (!String.IsNullOrEmpty(value: inputString))
                 {
+                    string connectedUserIP = ParseIpAddress();
                     //this string will still be encrypted with our asymmetric key, so we can't substring just yet
                     // we now need to decrypt the string with our asymmetric private key
-                    interMan.ManageLogin_PhaseOne(encryptedString: EncodingUtils.Base64StringToRegularString(inputString));
+                    this.interMan.ManageLogin_PhaseOne(encryptedString: EncodingUtils.Base64StringToRegularString(inputString), IpAddress: connectedUserIP);
                 }
             }
             catch
@@ -52,9 +86,9 @@ namespace MilitaryGrade_API.Controllers
         {
             try
             {
-                if (!String.IsNullOrEmpty(inputString))
+                if (!String.IsNullOrEmpty(value: inputString))
                 {
-                    interMan.ManageLogin(strEncryptedInitialCall: inputString);
+                    this.interMan.ManageLogin(encryptedString: inputString);
                 }
             }
             catch
@@ -70,9 +104,9 @@ namespace MilitaryGrade_API.Controllers
         {
             try
             {
-                if (!String.IsNullOrEmpty(inputString))
+                if (!String.IsNullOrEmpty(value: inputString))
                 {
-                    return interMan.GetResponseFromServer(strEncryptedInitialCall: inputString);
+                    return this.interMan.GetResponseFromServer(strEncryptedInitialCall: inputString);
                 }
             }
             catch
@@ -110,4 +144,5 @@ namespace MilitaryGrade_API.Controllers
             }
         }
     }
+
 }

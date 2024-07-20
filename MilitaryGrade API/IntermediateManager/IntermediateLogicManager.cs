@@ -15,7 +15,7 @@ public class IntermediateLogicManager
 
 
     /// <summary>
-    /// Why do we have this Method/App?: 
+    /// Why do we have this Method/App?:
     /// <br></br>
     /// Because there's a limit to how much info you can securely send to any remote API using their RSA keys. 
     /// The keyspace is always limited for RSA.
@@ -32,16 +32,16 @@ public class IntermediateLogicManager
 
     //Initial handshake between us and client
     //  happens using the PKI public RSA asymmetric encryption key (API-client will encrypt a small amount of data using our public key and send it here)
-    public void ManageLogin_PhaseOne(string encryptedString)
+    public void ManageLogin_PhaseOne(string encryptedString, string IpAddress)
     {
         try
         {
             //Here, we'll be using our server's asymmetric private key to decrypt the user's (Base64Decoded now) input string, before we can start substringing data and getting the symmetric keys;
-            string decryptedString = serverEncryption.ManageDecryptionOfInitialHandshakeData(encrypted: encryptedString);
+            string decryptedString = this.serverEncryption.ManageDecryptionOfInitialHandshakeData(encrypted: encryptedString);
 
             if (decryptedString.Length == 78) //has to match exactly what we expect, because there's limited keyspace for the RSA keys
             {
-                statefulManager.HandleAuthPhaseOne(decrypted: decryptedString);
+                this.statefulManager.HandleAuthPhaseOne(decrypted: decryptedString, IpAddress: IpAddress);
                 //user data has now been stored and they can move onto the next phase of login
             }
         }
@@ -51,22 +51,25 @@ public class IntermediateLogicManager
     }
 
     //first step in the chain after auth handshake (This happens using AES, not RSA)
-    public void ManageLogin(string strEncryptedInitialCall)
+    public void ManageLogin(string encryptedString)
     {
         try
         {
-            string strDecryptedCall = aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
+            //todo: we need to find the user in statefulmanager somehow, figure out what their key is, then decrypt
+            //using IPs here to figure out who the request is
 
-            if (!string.IsNullOrEmpty(strDecryptedCall))
+            string decryptedString = this.aesEncryption.Handler_Decryption(encryptedString, statefulManager);
+
+            if (!string.IsNullOrEmpty(decryptedString))
             {
-                if (strDecryptedCall.Length == 222) //30 + 64 +128
+                if (decryptedString.Length == 222) //30 + 64 +128
                 {
                     //once decryption is done, we have the plaintext, so we need to substr the vars out
-                    string username = strDecryptedCall.Substring(0, 30).Replace("'", "");
-                    string password = strDecryptedCall.Substring(30, 64).Replace("'", "");
+                    string username = decryptedString.Substring(0, 30).Replace("'", "");
+                    string password = decryptedString.Substring(30, 64).Replace("'", "");
 
                     //once our vals have been loaded up, we auth the user
-                    bool userCouldLogIn = dbConn.AuthLoginOnDB(username, password);
+                    bool userCouldLogIn = this.dbConn.AuthLoginOnDB(username, password);
 
                     //only load up the token for this session, if the user could log in (They're an authorized user)
                     if (userCouldLogIn)
@@ -76,8 +79,10 @@ public class IntermediateLogicManager
                         ///this increases the users' protection against having their password stolen by attackers
                         ///stolen sessionTokens will only be compromised for a single session - and attackers would need to repeat the attack next session (This is if they're somehow able to magically steal the encryption keys)
                         /// </remarks>
-                        statefulManager.UserConnectionData.SessionToken = strDecryptedCall.Substring(94, 128);
-                        //todo: need to rework this line above, considering concurrent connections to the API, we'd need to first check the state manager
+                        this.statefulManager.HandleUpdateAuthToken(username, decryptedString);
+
+                        //need to:
+                        //get the user's call, get the user details, check the connectedUsers log, find them, then replace their info with the updated info
                     }
                 }
             }
@@ -92,7 +97,7 @@ public class IntermediateLogicManager
         try
         {
             //Here, we'll be using our session's symmetric cryptographic key to decrypt the user's call, to get our data
-            string decrypted = aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
+            string decrypted = this.aesEncryption.Handler_Decryption(strEncryptedInitialCall, statefulManager);
 
             if (!string.IsNullOrEmpty(decrypted))
             {
@@ -105,7 +110,7 @@ public class IntermediateLogicManager
                 //todo: need to rework this, considering concurrent connections to the API, we'd need to first check the state manager
 
                 //encrypt the data we return back to client for bidirectional safety, using the current session's symmetric cryptographic key
-                string base64EncodedEncryptedJsonString = aesEncryption.Handler_Encryption(JsonString, statefulManager);
+                string base64EncodedEncryptedJsonString = this.aesEncryption.Handler_Encryption(JsonString, statefulManager);
                 return base64EncodedEncryptedJsonString;
             }
         }

@@ -196,12 +196,14 @@ public class StatefulnessManager
     /// Saves the user's data for future connections (During this session only), allowing us to implement Perfect Forward Secrecy (PFS)
     /// </summary>
     /// <param name="decrypted">plaintext string which contains: Key, IV and username</param>
-    public void HandleAuthPhaseOne([StringLength(78)] string decrypted) //min&max must be 78 chars only
+    public void HandleAuthPhaseOne([StringLength(78)] string decrypted, string IpAddress) //min&max must be 78 chars only
     {
         //load up their current connection object
         this.UserConnectionData.EncryptionKey = decrypted.Substring(0, 32); //key is first 32
         this.UserConnectionData.EncryptionInitializationVector = decrypted.Substring(64, 16); //IV is only 16
         this.UserConnectionData.Username = decrypted.Substring(64, 30); //username can be up to 30
+        //save their IP address for future lookup
+        this.UserConnectionData.IpAddress = IpAddress;
 
         //save the current object to the stateful manager file, so that we can persist their session
         WriteMessageToFile(GetJSONString());
@@ -214,5 +216,17 @@ public class StatefulnessManager
         this.UserConnectionData.SessionToken = decrypted.Substring(94, 128);
 
         ReplaceUserDataWithUpdatedData();
+    }
+
+    public void HandleUpdateAuthToken([StringLength(30)] string username, [StringLength(128)] string decrypted)
+    {
+        this.UserConnectionData.Username = username;
+        this.UserConnectionData.SessionToken = decrypted.Substring(0, 128);
+        //now find the username that matches, then update the token
+    }
+
+    public void HandleCloseSession()
+    {
+
     }
 }

@@ -8,4 +8,5 @@ public class UserData
     public string EncryptionInitializationVector { get; set; } = String.Empty;
     public string Username { get; set; } = String.Empty;
     public string SessionToken { get; set; } = String.Empty;
+    public string IpAddress { get; set; } = String.Empty;
 }
