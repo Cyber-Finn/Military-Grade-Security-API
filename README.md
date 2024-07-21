@@ -17,13 +17,13 @@ It's also an International Standard used by organizations like: VPN providers (l
 2. Past and Future Security:
    * Encrypted communications from the past/future cannot be retrieved and decrypted, even if the attacker stole network traffic for years (e.g., via a man-in-the-middle/on-path attack) because the encryption and session keys are ever-changing.
 3. Less info leaked during breaches:
-   * By protecting past communication, PFS reduces the motivation for attackers to compromise/target keys, and also results in less information leaks in during security breaches, as the scope of unauthorized-decryption is limited, due to ever-changing session keys.
+   * By protecting past communication, PFS reduces the motivation for attackers to compromise/target keys, and also results in less information leaks during security breaches, as the scope of unauthorized-access is limited.
 
 
-## Note:
+## Special Notes:
 1. No encryption method is perfect, and - whether it be memory/speed, interoperability, etc. - each one has its own concerns, flaws, strengths and intended use-case.
 2. Any form of encryption is only as strong as your implementation of it. e.g. using AES-256 incorrectly does not give you the same security as someone that's used it correctly. The security depends on your implementation of it.
-3. This project is still a work in progress (WIP). I will update this point once it has been completed.
+3. This project is still a Work In Progress (WIP). I will update this note once it has been completed.
 4. There is an API-client already included in this repo, within the "API Client" folder - you can find it [here](https://github.com/Cyber-Finn/Military-Grade-Security-API/tree/main/API%20Client).
 
 ## What is PKI?
