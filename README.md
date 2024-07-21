@@ -2,11 +2,11 @@
 An API example that uses military-grade encryption by implementing Perfect Forward Secrecy (PFS) and AES-256, with ephemeral session keys.
 
 ## What is Perfect Forward Secrecy (PFS)?:
-Perfect forward secrecy (PFS), also known as forward secrecy, is a cryptographic feature found in certain key-agreement protocols and underpins PKI. 
+Perfect forward secrecy (PFS), also known as forward secrecy, is a cryptographic feature found in certain key-agreement protocols and underpins technologies like Virtual Private Networks (VPNs), etc. 
 #### Why use PFS?:
 It provides assurances that even if long-term secrets used during session key exchange are compromised, the communications or secrets (like passwords, encryption keys, etc.) themselves won’t be compromised, as they are ever-changing.
 <br>
-It's also an International Standard used by organizations like: Banking institutions, Twitter, Gmail, WhatsApp, the CIA, the FBI, Facebook, Instagram, etc.
+It's also an International Standard used by organizations like: VPN providers (like NordVPN/McAfee), Banking institutions, Twitter, Gmail, WhatsApp, the CIA, the FBI, Facebook, Instagram, etc.
 
 #### How does PFS work, and what are the benefits of using it?:
 1. Unique Session Keys:
