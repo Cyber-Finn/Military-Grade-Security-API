@@ -1,5 +1,5 @@
 # Military-Grade Encryption API and VPN
-An API example that uses military-grade encryption by implementing Perfect Forward Secrecy (PFS) and AES-256, with ephemeral session keys.
+An API example that uses military-grade encryption by implementing Perfect Forward Secrecy (PFS) and AES-256 (Advanced Encryption Standard) encryption, with ephemeral session keys.
 <br>
 Can be used as a Virtual Private Network (VPN), as well as an API.
 
