@@ -8,14 +8,13 @@ Perfect forward secrecy (PFS), also known as forward secrecy, is a cryptographic
 #### Why use PFS?:
 It provides assurances that even if long-term secrets used during session key exchange are compromised, the communications or secrets (like passwords, encryption keys, etc.) themselves won’t be compromised, as they are ever-changing.
 <br></br>
-It's also an International Standard used by organizations like:
+It's also an International Standard used by major organizations like:
 1. VPN providers (Like NordVPN, McAfee, etc.)
 2. Banking institutions (Like Bank Of China, Capitec Bank, Chase Bank, Wells Fargo, ABSA Bank, Royal Bank of Canada, FNB, Citibank, etc.)
 3. Social media and email platforms (Like Twitter, Gmail, WhatsApp, Facebook, Instagram, Microsoft Outlook)
 4. Governmental organizations (Like the CIA/FBI, The USA's Department of Defence (DoD) A.K.A The Pentagon, etc.)
 5. Search engines (Google and Bing)
-6. Security Software (Like CrowdStrike, FortiNet, McAfee, etc.)
-7. etc.
+6. Security Software providers (Like CrowdStrike, FortiNet, McAfee, etc.)
 
 #### How does PFS work, and what are the benefits of using it?:
 1. Unique Session Keys:
