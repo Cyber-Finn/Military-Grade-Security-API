@@ -1,7 +1,7 @@
-# Military-Grade Encryption API Example
+# Military-Grade Encryption API and VPN
 An API example that uses military-grade encryption by implementing Perfect Forward Secrecy (PFS) and AES-256, with ephemeral session keys.
 <br>
-Can be used as a VPN, as well as an API.
+Can be used as a Virtual Private Network (VPN), as well as an API.
 
 ## What is Perfect Forward Secrecy (PFS)?:
 Perfect forward secrecy (PFS), also known as forward secrecy, is a cryptographic feature found in certain key-agreement protocols and underpins technologies like Virtual Private Networks (VPNs), etc. 
